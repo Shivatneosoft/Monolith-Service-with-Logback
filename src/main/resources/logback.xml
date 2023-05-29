@@ -1,0 +1,27 @@
+<configuration>
+    <property name = "CONTACT_LOG_FILE" value = "${CONTACT_LOG_FILE}" />
+    <property name="CONTACT_LOG_FILE_ARCHIVED" value="${CONTACT_LOG_FILE_ARCHIVED}" />
+    <property name="CONTACT_LOG_DIR" value="${CONTACT_LOG_DIR}" />
+<!--    <appender name = "CONSOLE" class = "ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} : %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${CONTACT_LOG_DIR}\${CONTACT_LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${CONTACT_LOG_DIR}\${CONTACT_LOG_FILE_ARCHIVED}.gz</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>5</maxHistory>
+            <!--            <totalSizeCap>5MB</totalSizeCap>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ROLLING" />
+<!--        <appender-ref ref="CONSOLE" />-->
+    </root>
+</configuration>
